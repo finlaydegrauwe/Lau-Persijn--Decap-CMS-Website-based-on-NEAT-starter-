@@ -21,10 +21,3 @@
 body {
   font-family: Ortica Linear, serif;
 }
-
-/* Syntax Highlighting*/
-
-body :not(pre) > code[class*="language-"],
-body pre[class*="language-"] {
-  @apply bg-gray-800;
-}

@@ -19,15 +19,20 @@ collections:
     editor:
       preview: false
     fields:
-      - {
-          label: "Boekenrug",
-          name: "thumbnail",
-          widget: "image",
-          required: true,
-        }
-      - { label: "Foto", name: "cover", widget: "image", required: false, allow_multiple: true }
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Ondertitel (nodig?)", name: "description", widget: "string" }
+      - label: "Gallery"
+        label_singular: "foto"
+        name: "galleryImages"
+        widget: "list"
+        summary: "{{fields.image}}"
+        fields:
+          - { label: Image, name: image, widget: image }
+          - {
+              label: "Onzichtbare ondertitel afbeelding voor slechtzienden",
+              name: "alt",
+              widget: "string",
+            }
       - { label: "Datum", name: "date", widget: "datetime" }
       - { label: "Body", name: "body", widget: "markdown" }
       - { label: "Tags", name: "tags", widget: "hidden", default: "films" }
@@ -81,6 +86,5 @@ collections:
           - { label: Name, name: name, widget: string }
           - { label: Background Color, name: bgcolor, widget: color }
           - { label: Font Color, name: fontcolor, widget: color }
-          - { label: Name, name: name, widget: string }
           - { label: Author, name: author, widget: string }
           - { label: Website author URL, name: url, widget: string }

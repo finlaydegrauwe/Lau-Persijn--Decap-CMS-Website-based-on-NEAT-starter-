@@ -1,7 +1,7 @@
-<div class="w-full p-4">
+<div class="w-full">
     <nav class="flex flex-col lg:flex-row items-center justify-center lg:justify-between flex-wrap ">
         <!--Logo etc-->
-        <div class="flex grow items-center px-16">
+        <div class="flex grow items-center">
             <a href="/" class="text-indigo-500 font-bold text-lg">
                 Lau Persijn</a>
         </div>
@@ -14,7 +14,7 @@
             <ul class="flex flex-row lg:pt-0 list-reset lg:flex justify-end flex-1 items-center">
                 {% for item in navigation.items %}
                 <li class="nav__item mr-3 grow">
-                    <a class="text-ml inline-block text-gray-500 no-underline hover:text-indigo-500 py-2 px-4"
+                    <a class="text-ml inline-block text-gray-500 no-underline hover:text-indigo-500"
                         href="{{ item.url }}">{{ item.text }}</a>
                 </li>
                 {% endfor %}

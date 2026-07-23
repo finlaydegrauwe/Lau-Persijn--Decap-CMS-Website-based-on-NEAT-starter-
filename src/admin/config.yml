@@ -14,7 +14,7 @@ local_backend: true
 collections:
   - label: "Films"
     name: "films"
-    folder: "src/films"
+    folder: "src/work"
     create: true
     editor:
       preview: false
@@ -36,14 +36,25 @@ collections:
     editor:
       preview: false
     files:
-      - label: "Intro"
-        name: "Intro"
+      - label: "Homepage"
+        name: "Homepage"
         file: "src/index.html"
         fields:
           - { label: Layout, name: layout, widget: hidden, default: "default" }
           - { label: Title, name: title, widget: string }
           - { label: Path, name: path, widget: hidden, default: "home" }
-          - { label: Intro, name: intro, widget: markdown }
+          - label: "Gallery"
+            label_singular: "foto"
+            name: "galleryImages"
+            widget: "list"
+            summary: "{{fields.image}}"
+            fields:
+              - { label: Image, name: image, widget: image }
+              - {
+                  label: "Onzichtbare ondertitel afbeelding voor slechtzienden",
+                  name: "alt",
+                  widget: "string",
+                }
           - { label: Body, name: body, widget: hidden }
       - label: "Bio"
         name: "bio"
@@ -68,5 +79,8 @@ collections:
         file: "src/_data/settings.yaml"
         fields:
           - { label: Name, name: name, widget: string }
+          - { label: Background Color, name: bgcolor, widget: color }
+          - { label: Font Color, name: fontcolor, widget: color }
+          - { label: Name, name: name, widget: string }
           - { label: Author, name: author, widget: string }
-          - { label: URL, name: url, widget: string }
+          - { label: Website author URL, name: url, widget: string }

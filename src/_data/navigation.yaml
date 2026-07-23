@@ -1,6 +1,6 @@
 ---
 items:
-  - text: interviews
-    url: "/films"
+  - text: work
+    url: "/work"
   - text: bio
     url: "/bio"

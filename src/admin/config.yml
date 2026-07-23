@@ -1,7 +1,7 @@
 backend:
   # Use netlify identity as backend
   name: git-gateway
-  branch: master
+  branch: main
   ### enable below lines for github integration ###
   # name: github
   # repo: surjithctly/neat-starter
@@ -12,9 +12,9 @@ public_folder: "/static/img"
 local_backend: true
 # publish_mode: editorial_workflow
 collections:
-  - label: "Interviews"
-    name: "interviews"
-    folder: "src/interviews"
+  - label: "Films"
+    name: "films"
+    folder: "src/films"
     create: true
     editor:
       preview: false
@@ -28,28 +28,9 @@ collections:
       - { label: "Foto", name: "cover", widget: "image", required: false, allow_multiple: true }
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Ondertitel (nodig?)", name: "description", widget: "string" }
-      - { label: "Geinterviewde auteur(s)", name: "interviewee", widget: "string" }
       - { label: "Datum", name: "date", widget: "datetime" }
       - { label: "Body", name: "body", widget: "markdown" }
-      - { label: "Tags", name: "tags", widget: "hidden", default: "interviews" }
-  - label: "Schrijfsels"
-    name: "schrijfsels"
-    folder: "src/schrijfsels"
-    create: true
-    editor:
-      preview: false
-    fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Description", name: "description", widget: "string" }
-      - { label: "Author", name: "author", widget: "string" }
-      - { label: "Publish Date", name: "date", widget: "datetime" }
-      - { label: "Body", name: "body", widget: "markdown" }
-      - widget: select
-        label: "tags"
-        name: "tags"
-        multiple: true
-        create: true
-        options: ["Zijn er tags nodig?", "Of niet?"]
+      - { label: "Tags", name: "tags", widget: "hidden", default: "films" }
   - label: "Settings"
     name: "settings"
     editor:
@@ -64,9 +45,9 @@ collections:
           - { label: Path, name: path, widget: hidden, default: "home" }
           - { label: Intro, name: intro, widget: markdown }
           - { label: Body, name: body, widget: hidden }
-      - label: "Contact"
-        name: "contact"
-        file: "src/contact.md"
+      - label: "Bio"
+        name: "bio"
+        file: "src/bio.md"
         fields:
           - { label: layout, name: layout, widget: hidden, default: "default" }
           - { label: Body, name: body, widget: markdown }

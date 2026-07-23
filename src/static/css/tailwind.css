@@ -12,12 +12,14 @@
 
 /*Your Custom CSS Goes here*/
 
-h1 {
-  @apply text-4xl tracking-tighter mb-3 text-center lg:text-7xl;
+@font-face {
+  font-family: Ortica Linear; /* set name */
+  src: url("../fonts/OrticaLinear-Regular.otf"); /* url of the font */
+  font-display: swap;
 }
 
-h3 {
-  @apply text-2xl font-bold mb-3;
+body {
+  font-family: Ortica Linear, serif;
 }
 
 /* Syntax Highlighting*/

@@ -1,12 +1,6 @@
 ---
 items:
   - text: interviews
-    url: "/interviews"
-  - text: contact
-    url: "/contact"
-  - text: toekomstig
-    url: "/toekomstig"
-  - text: schrijver
-    url: "/schrijver"
-  - text: kaart
-    url: "/kaart"
+    url: "/films"
+  - text: bio
+    url: "/bio"

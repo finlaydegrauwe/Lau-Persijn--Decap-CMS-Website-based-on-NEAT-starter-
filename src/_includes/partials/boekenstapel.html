@@ -1,9 +1,0 @@
-    {% if collections.interviews %}
-
-        {% for post in collections.interviews | reverse %}
-            <a href="./interviews/#{{post.data.title | slug }}" class="block">
-                <img width="{{ ["211px", "221px", "231px", "245px", "252px"] | random }}" src="{{ post.data.thumbnail }}" alt="{{ post.data.title }}" class="rounded-xs lg:w-full" style="padding-right: {{ ["1%", "4%", "6%", "8%", "11%"] | random }}; padding-left: {{ ["1%", "4%", "6%", "8%", "11%"] | random }};">
-            </a>
-        {% endfor %}
-
-    {% endif %}

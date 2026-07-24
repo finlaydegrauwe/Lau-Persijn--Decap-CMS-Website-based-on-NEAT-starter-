@@ -34,6 +34,7 @@ collections:
               widget: "string",
             }
       - { label: "Datum", name: "date", widget: "datetime" }
+      - { label: Layout, name: layout, widget: hidden, default: "film" }
       - { label: "Body", name: "body", widget: "markdown" }
       - { label: "Tags", name: "tags", widget: "hidden", default: "films" }
   - label: "Settings"

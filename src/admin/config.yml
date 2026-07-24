@@ -42,14 +42,6 @@ collections:
     editor:
       preview: false
     files:
-      - label: "Homepage"
-        name: "Homepage"
-        file: "src/index.html"
-        fields:
-          - { label: Layout, name: layout, widget: hidden, default: "default" }
-          - { label: Title, name: title, widget: string }
-          - { label: Path, name: path, widget: hidden, default: "home" }
-          - { label: Body, name: body, widget: hidden }
       - label: "Bio"
         name: "bio"
         file: "src/bio.md"

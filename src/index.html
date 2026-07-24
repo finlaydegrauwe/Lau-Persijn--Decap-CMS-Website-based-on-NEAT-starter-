@@ -2,11 +2,35 @@
 layout: default
 title: Lau Persijn
 path: home
-galleryImages:
-  - image: /static/img/underneath-it-flickers-still-13.jpg
-    alt: Still underneath it flickers
 ---
 
-    <div class="p-8 flex justify-center">
-        <img src="/static/img/underneath-it-flickers-still-13.jpg"/>
+    <div x-data="{
+    active: 0,
+    total: {{ collections.films | length }},
+    timer: null,
+    start() {
+      this.timer = setInterval(() => {
+        if (this.total > 0) {
+          this.active = (this.active + 1) % this.total;
+        }
+      }, 5000);
+    },
+    stop() {
+      clearInterval(this.timer);
+    }
+  }" x-init="start()"
+        class=" p-8 relative w-full max-h-[92vh] overflow-hidden">
+        {% for item in collections.films %}
+        {% if item.data.galleryImages and item.data.galleryImages[0] %}
+        <a href="{{ item.url }}" x-show="active === {{ loop.index0 }}"
+            x-transition:enter="transition-opacity ease-in-out duration-700" x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100" x-transition:leave="transition-opacity ease-in-out duration-700"
+            x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+            class="h-full block">
+            <img src="{{ item.data.galleryImages[0].image }}"
+                alt="{{ item.data.galleryImages[0].alt | default('Film Image') }}"
+                class="h-full w-full" />
+        </a>
+        {% endif %}
+        {% endfor %}
     </div>

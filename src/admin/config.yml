@@ -49,18 +49,6 @@ collections:
           - { label: Layout, name: layout, widget: hidden, default: "default" }
           - { label: Title, name: title, widget: string }
           - { label: Path, name: path, widget: hidden, default: "home" }
-          - label: "Gallery"
-            label_singular: "foto"
-            name: "galleryImages"
-            widget: "list"
-            summary: "{{fields.image}}"
-            fields:
-              - { label: Image, name: image, widget: image }
-              - {
-                  label: "Onzichtbare ondertitel afbeelding voor slechtzienden",
-                  name: "alt",
-                  widget: "string",
-                }
           - { label: Body, name: body, widget: hidden }
       - label: "Bio"
         name: "bio"

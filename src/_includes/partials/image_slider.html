@@ -1,0 +1,214 @@
+{% macro slider(imageArray) %}
+{# Generate a unique ID so multiple sliders on the same page don't clash #}
+{% set sliderId = "slider-" + range(1, 10000) | random %}
+
+<div
+  x-data="{
+    images: [],
+    modalOpen: false,
+
+    arrowsNavigation: true,
+    dotsNavigation: false,
+    transition: 'fade', 
+    loop: true,
+    autoplay: false,
+    autoplayDuration: 3000,
+    autoplayProgressBar: true,
+
+    currentIndex: 0,
+    autoplayInterval: null,
+    autoplayTimer: null,
+    autoplayProgress: 0,
+
+    init() {
+      const data = JSON.parse(document.getElementById('{{ sliderId }}').textContent);
+      this.images = data.map(item => item.image);
+      this.startAutoplayInterval('all');
+    },
+
+    set(index, from) {
+      if (index > -1 && index < this.images.length) {
+        if (index > this.currentIndex) {
+          this.currentIndex = index;
+          if (!this.loop && this.currentIndex === this.images.length - 1) {
+            this.resetAutoplayInterval('all');
+          } else {
+            if (from === 'button') {
+              this.resetAutoplayInterval('all', true);
+            } else {
+              this.resetAutoplayInterval('timer', true);
+            }
+          }
+        } else if (index < this.currentIndex) { 
+          this.currentIndex = index;
+          if (from === 'button') {
+            this.resetAutoplayInterval('all', true);
+          } else {
+            this.resetAutoplayInterval('timer', true);
+          }
+        }
+      }
+    },
+
+    next(from) {
+      if (!this.loop && this.currentIndex === this.images.length - 1) return;
+      this.set((this.currentIndex + 1) % this.images.length, from);
+    },
+
+    previous(from) {
+      if (!this.loop && this.currentIndex === 0) return;
+      this.set((this.currentIndex - 1 + this.images.length) % this.images.length, from);
+    },
+
+    startAutoplayInterval(mode) {
+      if (this.autoplay && (mode === 'all' || mode === 'interval')) {
+        this.autoplayInterval = setInterval(() => this.next(), this.autoplayDuration);
+      }
+      if (this.autoplay && this.autoplayProgressBar && (mode === 'all' || mode === 'timer')) {
+        this.autoplayProgressBar = false;
+        this.autoplayProgress = 0;
+        this.autoplayProgressBar = true;
+        this.autoplayTimer = setInterval(() => {
+          this.autoplayProgress += 100 / (this.autoplayDuration / 100);
+        }, 100);
+      }
+    },
+
+    resetAutoplayInterval(mode, restart) {
+      if (this.autoplay && (mode === 'all' || mode === 'interval')) {
+        clearInterval(this.autoplayInterval);
+        if (restart && mode === 'interval') this.startAutoplayInterval('interval');
+      }
+      if (this.autoplay && this.autoplayProgressBar && (mode === 'all' || mode === 'timer')) {
+        clearInterval(this.autoplayTimer);
+        if (restart && mode === 'timer') {
+          this.startAutoplayInterval('timer');
+        } else if (!restart) {
+          this.autoplayProgressBar = false;
+          this.autoplayProgress = 0;
+          this.autoplayProgressBar = true;
+        }
+      }
+      if (restart && mode === 'all') this.startAutoplayInterval('all');
+    },
+  }"
+  x-show="images.length > 0"
+  class="w-full h-full"
+>
+  <script type="application/json" id="{{ sliderId }}">
+    {{ imageArray | dump | safe if imageArray else "[]" }}
+  </script>
+
+  <div
+    class="relative overflow-hidden rounded-md group w-full h-full min-h-[450px]"
+    tabindex="0"
+    x-on:keyup.right="next('button')"
+    x-on:keyup.left="previous('button')"
+  >
+    <div class="w-full h-full" role="region" aria-roledescription="carousel" aria-label="Image Slider">
+      <template x-for="(image, index) in images" x-bind:key="index">
+        <img
+        loading="lazy"  
+        x-bind:src="image"
+          x-bind:alt="`Image ${index + 1}`"
+          @click="modalOpen = true"
+          class="absolute inset-0 h-full m-auto object-contain cursor-pointer"
+          x-bind:class="{
+            'transition duration-300 ease-in-out will-change-auto': transition,
+            'z-1': currentIndex === index,
+            'hidden': !transition && currentIndex !== index,
+            'opacity-100': (transition === 'fade' || transition === 'blur-sm')  && currentIndex === index,
+            'opacity-0 invisible': transition === 'fade' && currentIndex !== index,
+            'blur-xl opacity-0': transition === 'blur-sm' && currentIndex !== index,
+            'translate-x-0': transition === 'slide' && currentIndex === index,
+            '-translate-x-full': transition === 'slide' && currentIndex > index,
+            'translate-x-full': transition === 'slide' && currentIndex < index
+          }"
+        />
+      </template>
+    </div>
+    
+    <button
+      x-cloak
+      x-show="images.length > 1 && arrowsNavigation && !(!loop && currentIndex === 0)"
+      @click.stop="previous('button')"
+      type="button"
+      class="absolute left-2 top-1/2 z-10 -translate-y-1/2 flex items-center justify-center rounded-full p-2 text-white/80 bg-black/50 hover:bg-black/80 hover:text-white backdrop-blur-md transition-all shadow-sm"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5 rtl:rotate-180">
+        <path fill-rule="evenodd" d="M11.78 5.22a.75.75 0 0 1 0 1.06L8.06 10l3.72 3.72a.75.75 0 1 1-1.06 1.06l-4.25-4.25a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd" />
+      </svg>
+    </button>
+    
+    <button
+      x-cloak
+      x-show="images.length > 1 && arrowsNavigation && !(!loop && currentIndex === images.length - 1)"
+      @click.stop="next('button')"
+      type="button"
+      class="absolute right-2 top-1/2 z-10 -translate-y-1/2 flex items-center justify-center rounded-full p-2 text-white/80 bg-black/50 hover:bg-black/80 hover:text-white backdrop-blur-md transition-all shadow-sm"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5 rtl:rotate-180">
+        <path fill-rule="evenodd" d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+      </svg>
+    </button>
+  </div>
+  <div
+    x-cloak
+    x-show="modalOpen"
+    @keydown.escape.window="modalOpen = false"
+    @click="modalOpen = false"
+    class="fixed inset-0 z-[100] bg-black/30 flex items-center justify-center backdrop-blur-md cursor-zoom-out"
+    x-transition:enter="transition ease-out duration-300"
+    x-transition:enter-start="opacity-0"
+    x-transition:enter-end="opacity-100"
+    x-transition:leave="transition ease-in duration-200"
+    x-transition:leave-start="opacity-100"
+    x-transition:leave-end="opacity-0"
+  >
+    <button
+      @click.stop="modalOpen = false"
+      class="absolute top-4 right-4 md:top-8 md:right-8 z-[110] p-2 text-white/80 bg-black/50 hover:bg-black/80 hover:text-white backdrop-blur-md rounded-full transition-all"
+      aria-label="Close fullscreen"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-8">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+      </svg>
+    </button>
+
+    <div class="w-full h-full max-w-7xl flex items-center justify-center">
+      <template x-for="(image, index) in images" :key="'modal-' + index">
+        <img
+        loading="lazy"
+          x-bind:src="image"
+          x-show="currentIndex === index"
+          @click.stop
+          x-transition:enter="transition ease-out duration-300"
+          x-transition:enter-start="opacity-0 scale-95"
+          x-transition:enter-end="opacity-100 scale-100"
+          class="absolute inset-0 m-auto h-full object-contain p-4 md:p-16 cursor-default"
+        />
+      </template>
+    </div>
+
+    <button
+      x-show="images.length > 1"
+      @click.stop="previous('button')"
+      class="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-[110] flex items-center justify-center rounded-full p-3 md:p-4 text-white/80 bg-black/50 hover:bg-black/80 hover:text-white backdrop-blur-md transition-all shadow-lg"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-8 md:size-10">
+        <path fill-rule="evenodd" d="M11.78 5.22a.75.75 0 0 1 0 1.06L8.06 10l3.72 3.72a.75.75 0 1 1-1.06 1.06l-4.25-4.25a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd" />
+      </svg>
+    </button>
+
+    <button
+      x-show="images.length > 1"
+      @click.stop="next('button')"
+      class="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-[110] flex items-center justify-center rounded-full p-3 md:p-4 text-white/80 bg-black/50 hover:bg-black/80 hover:text-white backdrop-blur-md transition-all shadow-lg"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-8 md:size-10">
+        <path fill-rule="evenodd" d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+      </svg>
+    </button>
+  </div>
+  </div>
+{% endmacro %}

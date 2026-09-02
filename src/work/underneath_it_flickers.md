@@ -28,7 +28,7 @@ sound mixing: Raf Enckels\
 [eco-grief in KASKcinema](https://www.kaskcinema.be/kaskcinema/vertoning/ontroerd_klimaatrouw_kortfilms)\
 [festival en ville 2025](https://www.festivalenville.be/underneath-it-flickers)\
 [beursschouwburg, listening to (and with) the landscape](https://beursschouwburg.be/en/events/beneath-it-flickers-on-the-battlefield/)\
-[klimax: short films For climate activism](https://www.cinemaritcs.be/production/klimax/)\
+[klimax: short films for climate activism](https://www.cinemaritcs.be/production/klimax/)\
 [wiels: journée de l'eau](https://wiels.org/en/events/world-water-day-workshop-screenings)\
 [pianofabriek: orte blikke/regards courts](https://www.leptitcine.be/-Regards-courts-Korte-blikken-15-)\
 [cut to: gent: garden shorts](https://www.instagram.com/p/DLkEfvZtVCa/?img_index=1)\

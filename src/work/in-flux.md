@@ -1,5 +1,5 @@
 ---
-title: In Flux
+title: in flux (working title)
 description: In productie
 galleryImages:
   - image: https://tailwindflex.com/images/logo.svg

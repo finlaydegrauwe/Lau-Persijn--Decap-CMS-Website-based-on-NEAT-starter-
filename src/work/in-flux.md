@@ -2,7 +2,7 @@
 title: in flux (working title)
 description: in production
 galleryImages:
-  - image: https://tailwindflex.com/images/logo.svg
+  - image: /static/img/in-flux-still-1.jpg
     alt: Still of a pond
 date: 2026-07-23T23:44:00.000+02:00
 layout: film

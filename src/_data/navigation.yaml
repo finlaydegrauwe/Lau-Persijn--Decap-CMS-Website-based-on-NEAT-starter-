@@ -1,6 +1,5 @@
----
 items:
   - text: work
-    url: "/work"
-  - text: bio
-    url: "/bio"
+    url: /work
+  - text: about
+    url: /bio

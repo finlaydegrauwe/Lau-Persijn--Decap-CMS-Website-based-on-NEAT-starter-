@@ -37,6 +37,25 @@ collections:
       - { label: Layout, name: layout, widget: hidden, default: "film" }
       - { label: "Body", name: "body", widget: "markdown" }
       - { label: "Tags", name: "tags", widget: "hidden", default: "films" }
+  - label: "Events"
+    name: "events"
+    folder: "src/events"
+    create: true
+    editor:
+      preview: false
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - {
+          label: "Date",
+          name: "date",
+          widget: "datetime",
+          date_format: "YYYY-MM-DD",
+          time_format: false,
+        }
+      - { label: "Location", name: "location", widget: "string" }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Hyperlink", name: "link", widget: "string" }
+      - { label: "Tags", name: "tags", widget: "hidden", default: "events" }
   - label: "Settings"
     name: "settings"
     editor:

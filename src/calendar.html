@@ -1,0 +1,45 @@
+---
+layout: default
+title: Calendar
+path: calendar
+---
+
+{% set eventGroups = collections.events | partitionEventsByDate %}
+
+<main class="w-full lg:max-w-3xl m-auto">
+    <section>
+        <h1 class="font-bold text-2xl mb-4">Upcoming events</h1>
+        <ul>
+            {% for event in eventGroups.upcoming %}
+            <li class="mb-4">
+                <time datetime="{{ event.eventDate.toISODate() }}">{{ event.data.date | readableDate }}</time>
+                — {{ event.data.location }}:
+                {% if event.data.link %}
+                <a href="{{ event.data.link }}">{{ event.data.title }}</a>
+                {% else %}
+                {{ event.data.title }}
+                {% endif %}
+                — {{ event.data.description }}
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section class="mt-12">
+        <h2 class="font-bold text-2xl mb-4">Past events</h2>
+        <ul>
+            {% for event in eventGroups.past %}
+            <li class="mb-4">
+                <time datetime="{{ event.eventDate.toISODate() }}">{{ event.data.date | readableDate }}</time>
+                — {{ event.data.location }}:
+                {% if event.data.link %}
+                <a href="{{ event.data.link }}">{{ event.data.title }}</a>
+                {% else %}
+                {{ event.data.title }}
+                {% endif %}
+                — {{ event.data.description }}
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+</main>

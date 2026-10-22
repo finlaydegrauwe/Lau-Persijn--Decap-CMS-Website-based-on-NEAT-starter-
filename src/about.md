@@ -1,5 +1,6 @@
 ---
 layout: default
+contentClass: "w-full lg:max-w-3xl m-auto"
 ---
 lau persijn is a brussels-based filmmaker and organiser whose film practice engages with marginalised more-than-human ecologies within urban contexts. with a strong focus on listening, they explore film as a tool to question and deconstruct dominant perspectives, working primarily with analogue film and sound.\
 \

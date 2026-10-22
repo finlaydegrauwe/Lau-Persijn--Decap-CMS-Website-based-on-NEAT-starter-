@@ -32,7 +32,11 @@
     <div class="flex flex-col min-h-screen p-4">
     {% include "./partials/navbar.html" %}
 
-    {{ content | safe }}
+    {% if contentClass %}
+      <main class="{{ contentClass }}">{{ content | safe }}</main>
+    {% else %}
+      {{ content | safe }}
+    {% endif %}
 
     {% include "./partials/footer.html" %}
 

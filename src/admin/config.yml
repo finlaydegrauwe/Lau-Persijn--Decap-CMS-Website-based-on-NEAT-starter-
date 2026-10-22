@@ -56,6 +56,31 @@ collections:
       - { label: "Description", name: "description", widget: "text" }
       - { label: "Hyperlink", name: "link", widget: "string" }
       - { label: "Tags", name: "tags", widget: "hidden", default: "events" }
+  - label: "Curator"
+    name: "curator"
+    folder: "src/curator-items"
+    create: true
+    editor:
+      preview: false
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Ondertitel (nodig?)", name: "description", widget: "string" }
+      - label: "Gallery"
+        label_singular: "foto"
+        name: "galleryImages"
+        widget: "list"
+        summary: "{{fields.image}}"
+        fields:
+          - { label: Image, name: image, widget: image }
+          - {
+              label: "Onzichtbare ondertitel afbeelding voor slechtzienden",
+              name: "alt",
+              widget: "string",
+            }
+      - { label: "Datum", name: "date", widget: "datetime" }
+      - { label: Layout, name: layout, widget: hidden, default: "film" }
+      - { label: "Body", name: "body", widget: "markdown" }
+      - { label: "Tags", name: "tags", widget: "hidden", default: "curator" }
   - label: "Settings"
     name: "settings"
     editor:
@@ -79,6 +104,27 @@ collections:
             fields:
               - { label: Title, name: text, widget: string }
               - { label: URL, name: url, widget: string }
+              - {
+                  label: "Open in new tab",
+                  name: target,
+                  widget: select,
+                  options: ["_self", "_blank"],
+                  default: "_self",
+                }
+              - label: Submenu Items
+                name: children
+                widget: list
+                required: false
+                fields:
+                  - { label: Title, name: text, widget: string }
+                  - { label: URL, name: url, widget: string }
+                  - {
+                      label: "Open in new tab",
+                      name: target,
+                      widget: select,
+                      options: ["_self", "_blank"],
+                      default: "_self",
+                    }
       - label: "Meta Settings"
         name: "settings"
         file: "src/_data/settings.yaml"

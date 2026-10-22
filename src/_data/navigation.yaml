@@ -1,6 +1,16 @@
 items:
   - text: work
-    url: /work
+    children:
+      - text: films
+        url: /films
+      - text: curator
+        url: /curator
+      - text: acab kino
+        url: https://acab-kino.an-exit.xyz
+        target: _blank
+      - text: OFF
+        url: https://onefieldfallow.hotglue.me
+        target: _blank
   - text: calendar
     url: /calendar
   - text: about

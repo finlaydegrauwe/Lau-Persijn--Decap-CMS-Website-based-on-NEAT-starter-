@@ -21,13 +21,15 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.setDataDeepMerge(true);
 
   // human readable date
-  eleventyConfig.addFilter("readableDate", (dateObj) => {
+  const readableDate = (dateObj) => {
     return DateTime.fromJSDate(dateObj, { zone: "utc" }).toFormat(
       "dd LLL yyyy"
     );
-  });
+  };
+  eleventyConfig.addFilter("readableDate", readableDate);
+  eleventyConfig.addNunjucksFilter("readableDate", readableDate);
 
-  eleventyConfig.addFilter("partitionEventsByDate", (events = []) => {
+  const partitionEventsByDate = (events = []) => {
     const today = DateTime.utc().startOf("day");
     const groupedEvents = { upcoming: [], past: [] };
 
@@ -51,7 +53,13 @@ module.exports = function (eleventyConfig) {
     groupedEvents.past.sort((a, b) => b.eventDate - a.eventDate);
 
     return groupedEvents;
-  });
+  };
+  eleventyConfig.addCollection("upcomingEvents", (collectionApi) =>
+    partitionEventsByDate(collectionApi.getFilteredByTag("events")).upcoming,
+  );
+  eleventyConfig.addCollection("pastEvents", (collectionApi) =>
+    partitionEventsByDate(collectionApi.getFilteredByTag("events")).past,
+  );
 
    // Sort by data files `date` field
   eleventyConfig.addFilter("sortDataByDate", (obj) => {

@@ -3,15 +3,20 @@ items:
     children:
       - text: films
         url: /films
-      - text: curator
-        url: /curator
-      - text: acab kino
+        target: _self
+      - text: programming
+        url: /programming
+        target: _blank
+      - text: ACAB Kino
         url: https://acab-kino.an-exit.xyz
         target: _blank
       - text: OFF
         url: https://onefieldfallow.hotglue.me
         target: _blank
+    target: _self
   - text: calendar
     url: /calendar
+    target: _blank
   - text: about
     url: /about
+    target: _blank
